@@ -1,7 +1,7 @@
 require_relative '../url_short_web_app.rb'
 
 describe UrlShortWebApp do
-  let(:app) { UrlShortWebApp.new }
+  let(:app) { UrlShortWebApp.new(double('UrlRepository')) }
 
   describe '#get_route_name' do
     context 'create_slug route' do
