@@ -17,7 +17,7 @@ class UrlShortWebApp
   def call(env)
     req = Rack::Request.new(env)
     params = req.post? ? JSON.parse(req.body.gets) : {}
-    dispatch get_route_name(req), req, params, repo
+    dispatch get_route_name(req), req, params, @repo
   end
 
   def dispatch(route_name, req, params, repo)

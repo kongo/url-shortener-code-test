@@ -1,3 +1,5 @@
+require 'uri'
+
 class UrlRepository
   SLUG_LENGTH = 6
 
@@ -7,7 +9,7 @@ class UrlRepository
 
   def add(url)
     slug = generate_uniq_slug
-    @storage[slug] = url
+    @storage[slug] = ensure_url_has_scheme url
     slug
   end
 
@@ -30,5 +32,9 @@ class UrlRepository
 
   def generate_slug
     rand(36 ** SLUG_LENGTH).to_s(36)
+  end
+
+  def ensure_url_has_scheme(url)
+    URI.parse(url).scheme.nil? ? 'http://' + url : url
   end
 end

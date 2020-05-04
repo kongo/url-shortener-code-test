@@ -20,6 +20,13 @@ describe UrlRepository do
       expect(result).to be_a(String)
       expect(result.length).to eq(described_class::SLUG_LENGTH)
     end
+
+    context 'when given URL does not contain scheme' do
+      it 'prepends scheme to the URL' do
+        slug = subject.add('foo.bar')
+        expect(subject.get(slug)).to eq('http://foo.bar')
+      end
+    end
   end
 
   describe '#get' do
