@@ -98,3 +98,13 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+RSpec::Matchers.define :be_correct_rack_response do
+  match do |actual|
+    actual.is_a?(Array) &&
+      actual.count == 3 &&
+      actual[0].is_a?(Integer) &&
+      actual[1].is_a?(Hash) &&
+      actual[2].is_a?(Array)
+  end
+end

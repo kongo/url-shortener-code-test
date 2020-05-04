@@ -17,21 +17,21 @@ class UrlShortWebApp
   def call(env)
     req = Rack::Request.new(env)
     params = req.post? ? JSON.parse(req.body.gets) : {}
-    dispatch get_route_name(req), req, params
+    dispatch get_route_name(req), req, params, repo
   end
 
-  def dispatch(route_name, req, params)
+  def dispatch(route_name, req, params, repo)
     return response_404 if route_name.nil?
-    send route_name, req, params
+    send route_name, req, params, repo
   end
 
-  def create_slug(req, params)
-    slug = @repo.add(params['url'])
-    [201, JSON_HEADERS, [{ short_url: slug, url: @repo.get(slug) }.to_json] ]
+  def create_slug(req, params, repo)
+    slug = repo.add(params['url'])
+    [201, JSON_HEADERS, [{ short_url: slug, url: repo.get(slug) }.to_json] ]
   end
 
-  def use_slug(req, params)
-    url = @repo.get(req.path_info[1..])
+  def use_slug(req, params, repo)
+    url = repo.get(req.path_info[1..])
     if url.nil?
       response_404
     else
@@ -39,8 +39,8 @@ class UrlShortWebApp
     end
   end
 
-  def index_slugs(req, params)
-    [200, JSON_HEADERS, [{ urls: @repo.all }.to_json] ]
+  def index_slugs(req, params, repo)
+    [200, JSON_HEADERS, [{ urls: repo.all }.to_json] ]
   end
 
   def response_404
