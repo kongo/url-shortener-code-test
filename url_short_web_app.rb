@@ -40,7 +40,8 @@ class UrlShortWebApp
   end
 
   def index_slugs(req, params, repo)
-    [200, JSON_HEADERS, [{ urls: repo.all }.to_json] ]
+    urls_for_json = repo.all.map { |k, v| { slug: k, url: v } }
+    [200, JSON_HEADERS, [{ urls: urls_for_json }.to_json] ]
   end
 
   def response_404
