@@ -1,3 +1,23 @@
+# How To Run
+
+It uses RVM to pick ruby 2.7.0 and create a gemset, but running without RVM is perfectly fine.
+
+Run web server:
+```
+cd url-shortener-code-test
+bundle install
+rackup config.ru -p 4000
+```
+
+Open frontend: [http://localhost:4000/url-list.html](http://localhost:4000/url-list.html)
+
+Name of the webpage `url-list.html` was selected not to confuse obvious `index.html` with `/` API endpoint.
+
+Run specs:
+```
+rspec
+```
+
 # Url Shortener Code Test
 
 Without using an external database, we'd like you to create a URL shortening
