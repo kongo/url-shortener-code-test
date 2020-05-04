@@ -4,7 +4,7 @@ describe UrlShortWebApp do
   subject { UrlShortWebApp.new('UrlRepository') }
   let(:req)    { double('request') }
   let(:params) { double('params')  }
-  let(:repo)   { double('repo', add: nil, get: nil, all: nil) }
+  let(:repo)   { double('repo', add: nil, get: nil, all: []) }
   let(:test_url) { 'http://example.com/foo-bar' }
 
   describe '#get_route_name' do
